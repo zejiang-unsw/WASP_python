@@ -1,5 +1,5 @@
 import numpy as np
-from dwt_mra import dwt_mra  # Make sure this is in your folder
+from dwt_mra import dwt_mra 
 
 def wasp_val(X, C, method='dwtmra', wavelet_name='db1', flag_sign=False):
     """
@@ -38,7 +38,13 @@ def wasp_val(X, C, method='dwtmra', wavelet_name='db1', flag_sign=False):
         # Standardization
         mean_dwt = np.mean(X_DWT, axis=0)
         std_dwt = np.std(X_DWT, axis=0, ddof=0)
-        X_DWT_norm = (X_DWT - mean_dwt) / std_dwt
+
+        # Set a small threshold to avoid division by zero
+        epsilon = 1e-8
+        std_dwt_safe = np.where(std_dwt < epsilon, 1.0, std_dwt)
+        # print(std_dwt_safe)
+
+        X_DWT_norm = (X_DWT - mean_dwt) / std_dwt_safe
 
         # Normalize C
         C_norm = C[:, i] / np.sqrt(np.sum(C[:, i] ** 2))
