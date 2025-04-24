@@ -62,8 +62,8 @@ plt.figure(figsize=(8, 5))
 bar_width = 0.25
 x = np.arange(n_var)
 
-plt.bar(x, RMSE, width=bar_width, label='Std')
-plt.bar(x + bar_width, RMSE_WaSP, width=bar_width, label='VT')
+plt.bar(x, RMSE, width=bar_width, label='Original')
+plt.bar(x + bar_width, RMSE_WaSP, width=bar_width, label='WASP')
 plt.bar(x + 2 * bar_width, RMSE_opti, width=bar_width, label='Optimal')
 
 plt.xticks(x + bar_width, [f'{i+1}' for i in x])  # Show 1, 2, 3, 4
