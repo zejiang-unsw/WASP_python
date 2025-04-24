@@ -39,7 +39,7 @@ for i in range(n_var):
     x_wasp = X_WaSP[:N, i]
 
     # Optimal RMSE (WRR2020 Eq. 12)
-    # ratio = np.var(x_raw) / np.var(x_wasp)
+    ratio = np.var(x_raw) / np.var(x_wasp)
     # RMSE_opti[i] = np.sqrt((N - 1) / N * (np.var(Y) - (np.linalg.norm(C[:, i]) ** 2) * ratio))
     RMSE_opti[i] = np.sqrt((np.var(Y) - (np.linalg.norm(C[:, i]) ** 2) * ratio)) # different variance calculation in python
 
