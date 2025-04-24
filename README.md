@@ -23,9 +23,9 @@ Install the required Python packages using pip:
 
 ```bash
 pip install numpy matplotlib PyWavelets
+```
 
-
- ##Citation
+## Citation
 Jiang, Z., Sharma, A., & Johnson, F. (2020).
 Refining Predictor Spectral Representation Using Wavelet Theory for Improved Natural System Modeling.
 Water Resources Research, 56(3), e2019WR026962.
