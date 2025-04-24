@@ -34,8 +34,13 @@ def wasp(Y, X, method='dwtmra', wavelet_name='db1', level=3, flag_sign=False):
         mean_cal = np.mean(X_DWT_cal, axis=0)
         std_cal = np.std(X_DWT_cal, axis=0, ddof=0)
 
+        # Set a small threshold to avoid division by zero
+        epsilon = 1e-8
+        std_cal_safe = np.where(std_cal < epsilon, 1.0, std_cal)
+        # print(std_cal_safe)
+
         X_DWT_centered = X_DWT - mean_cal
-        X_DWT_norm = X_DWT_centered / std_cal
+        X_DWT_norm = X_DWT_centered / std_cal_safe
 
         # === Covariance (Eq. 10 WRR2020) ===
         C[:, i] = (1 / (N - 1)) * (Y @ X_DWT_norm[:N, :])
