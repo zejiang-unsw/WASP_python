@@ -66,7 +66,7 @@ plt.title(f'Calibration RMSE - {method} using {wname}')
 plt.xticks(index + bar_width, [str(i+1) for i in index])  # Set x-axis labels as 1, 2, 3, 4
 plt.legend()
 plt.tight_layout()
-plt.savefig('RMSE.png', dpi=300)
+plt.savefig('RMSE_cal.png', dpi=300)
 
 
 # === Calibration Comparison Plot ===
@@ -115,8 +115,7 @@ if N_fc > 0:
         R_raw_fct[i] = np.corrcoef(Y_val, y_pred_std)[0, 1] ** 2
         R_WaSP_fct[i] = np.corrcoef(Y_val, y_pred_wasp)[0, 1] ** 2
 
-    # === R² Bar Plot ===
-  # === R² Bar Plot ===
+# === R² Bar Plot ===
 plt.figure(figsize=(10, 6))
 bar_width = 0.35
 index = np.arange(n_var)
@@ -131,6 +130,4 @@ plt.xticks(index + bar_width / 2, [str(i+1) for i in index])  # Set x-axis label
 plt.legend()
 plt.tight_layout()
 plt.savefig('R2_val.png', dpi=300)
-
-
 plt.show()
