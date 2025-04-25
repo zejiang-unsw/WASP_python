@@ -28,7 +28,11 @@ flag_sign = True
 method = 'dwtmra'  # Only dwtmra is implemented in our wasp()
 
 # === Decomposition level ===
-lev = int(np.floor(np.log2(X.shape[0])) - 1)
+# maximum decomposition level: floor(log2(size(X,1)))
+# or rule of thumb decomposition level: ceiling(log(n/(2*v-1))/log(2))-1 (Kaiser, 1994)
+#lev = int(np.floor(np.log2(X.shape[0])) - 1)
+lev = int(np.ceil(np.log(X.shape[0] / (2 * n_vanish - 1)) / np.log(2))) - 1
+print("Decomposition level: ", lev)
 
 # === Apply WASP ===
 X_WaSP, C = wasp(Y, X, method=method, wavelet_name=wname, level=lev, flag_sign=flag_sign)
@@ -86,7 +90,7 @@ for i in range(n_var):
     plt.subplot(n_var, 1, i + 1)
     plt.plot(Y, 'k', label='Y')
     plt.plot(X[:, i], 'b', label='X')
-    plt.plot(X_WaSP[:, i], 'r', label='X_WaSP')
+    plt.plot(X_WaSP[:, i], 'r', label='X\'')
     plt.xlim([0, N + N_fc])
     if i == 0:
         plt.legend(loc='upper right', ncol=1)
