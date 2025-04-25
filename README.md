@@ -8,7 +8,7 @@ This version replicates the core functionality of the original [WASP_MATLAB](htt
 
 ## 💡 What is WASP?
 
-WASP (Wavelet System Prediction) is a method to refine predictor spectral representations using wavelet-domain variance transformation. It improves model accuracy by aligning predictor variance with the spectral structure of the target signal, commonly applied in hydrological and environmental forecasting.
+WASP (Wavelet System Prediction) is a method to refine predictor spectral representations using frequency-domain variance transformation. It improves model accuracy by aligning predictor variance with the spectral structure of the target response, commonly applied in hydrological and environmental forecasting.
 
 This implementation uses:
 - Custom-built multiresolution decomposition (`dwt_mra`)
