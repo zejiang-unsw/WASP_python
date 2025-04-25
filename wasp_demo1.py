@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from wasp import wasp  # Make sure this is in the same folder
+from wasp import wasp  
 
 # === Parameters ===
 N = 200          # Number of observations
@@ -10,6 +10,10 @@ fs = 50
 dt = 1 / fs
 t = np.arange(0, N + N_fc) * dt
 
+# Set seed for reproducibility
+seed = 20250425  # You can choose any integer
+np.random.seed(seed)
+
 # === Generate synthetic Y and X ===
 Y_ALL = (np.sin(2 * np.pi * t + np.random.randn(1)) + 0.1 * np.random.randn(len(t))).flatten()
 X = np.random.randn(N + N_fc, n_var)
@@ -18,7 +22,7 @@ Y = Y_ALL[:N]
 Y_val = Y_ALL[N:]
 
 # === Wavelet parameters ===
-n_vanish = 2
+n_vanish = 1  # Number of vanishing moments
 wname = f'db{n_vanish}'
 flag_sign = True
 method = 'dwtmra'  # Only dwtmra is implemented in our wasp()
@@ -74,8 +78,6 @@ plt.title(f'Variance transformation based on {method.upper()} using {wname}')
 plt.legend(loc='upper left')
 plt.tight_layout()
 plt.savefig('RMSE.png', dpi=300)
-plt.show()
-
 
 # === Plot Y, X, and X_WaSP ===
 plt.figure(figsize=(10, 8))
@@ -84,13 +86,14 @@ for i in range(n_var):
     plt.subplot(n_var, 1, i + 1)
     plt.plot(Y, 'k', label='Y')
     plt.plot(X[:, i], 'b', label='X')
-    plt.plot(X_WaSP[:, i], 'r', label='Xnew')
+    plt.plot(X_WaSP[:, i], 'r', label='X_WaSP')
     plt.xlim([0, N + N_fc])
     if i == 0:
         plt.legend(loc='upper right', ncol=1)
     plt.ylabel(f'Var {i+1}')
 plt.xlabel('Time Step')
 plt.tight_layout(rect=[0, 0.03, 1, 0.95])
-plt.savefig('comparison.png')
+plt.savefig('Comparison.png', dpi=300)
+
 plt.show()
 
