@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from wasp import wasp
 from wasp_val import wasp_val
+import pywt
 
 # === Parameters ===
 N = 128
@@ -11,6 +12,10 @@ fs = 50
 dt = 1 / fs
 t = np.arange(0, N + N_fc) * dt
 
+# Set seed for reproducibility
+seed = 20250425  # You can choose any integer
+np.random.seed(seed)
+
 # === Synthetic Data ===
 Y_ALL = (np.sin(2 * np.pi * t + np.random.randn(1)) + 0.1 * np.random.randn(len(t))).flatten()
 X = np.random.randn(N + N_fc, n_var)
@@ -18,11 +23,19 @@ Y = Y_ALL[:N]
 Y_val = Y_ALL[N:]
 
 # === Wavelet Settings ===
-n_vanish = 1
+n_vanish = 2
 wname = f'db{n_vanish}'
-flag_sign = True
+flag_sign = True # Sign correction
 method = 'dwtmra'
-lev = int(np.floor(np.log2(X.shape[0])) - 1)
+
+# === Decomposition level ===
+# maximum decomposition level: floor(log2(size(X,1)))
+# or rule of thumb decomposition level: ceiling(log(n/(2*v-1))/log(2))-1 (Kaiser, 1994)
+# lev = int(np.floor(np.log2(X.shape[0])) - 1)
+lev = int(np.ceil(np.log(X.shape[0] / (2 * n_vanish - 1)) / np.log(2))) - 1
+# max_level = pywt.dwt_max_level(X.shape[0], pywt.Wavelet(wname).dec_len)  
+# print(max_level)
+print("Decomposition level: ", lev)
 
 # === WASP Transformation ===
 X_WaSP, C = wasp(Y, X, method=method, wavelet_name=wname, level=lev, flag_sign=flag_sign)
