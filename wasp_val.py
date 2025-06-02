@@ -50,7 +50,7 @@ def wasp_val(X, C, method='dwtmra', wavelet_name='db1', flag_sign=False):
         C_norm = C[:, i] / np.sqrt(np.sum(C[:, i] ** 2))
 
         # Variance transformation
-        std_orig = np.std(x_raw, ddof=0)
+        std_orig = np.std(x_raw, ddof=1)
         x_trans = X_DWT_norm @ (std_orig * C_norm)
 
         # Optional sign flip
