@@ -49,7 +49,7 @@ def wasp(Y, X, method='dwtmra', wavelet_name='db1', level=3, flag_sign=False):
         C_norm = C[:, i] / np.sqrt(np.sum(C[:, i] ** 2))
 
         # === Variance Transformation (Eq. 9 WRR2020) ===
-        std_orig = np.std(x_raw[:N], ddof=0)
+        std_orig = np.std(x_raw[:N], ddof=1)
         x_ref = X_DWT_norm @ (std_orig * C_norm)
 
         # === Sign check (optional) ===
