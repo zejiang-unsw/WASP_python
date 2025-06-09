@@ -27,8 +27,9 @@ plt.grid(True)
 for i in range(level):
     plt.subplot(level + 2, 1, i + 2)
     plt.plot(t, X_DWT_MRA[:, i])
-    plt.ylabel(f'Detail L{i+1}')
+    plt.ylabel(f'Detail L{level - i}')
     plt.grid(True)
+
 
 plt.subplot(level + 2, 1, level + 2)
 plt.plot(t, X_DWT_MRA[:, -1])
